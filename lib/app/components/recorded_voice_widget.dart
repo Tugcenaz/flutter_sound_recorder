@@ -7,6 +7,8 @@ import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
 import 'package:flutter_sound_recorder/app/views/playing_record_page.dart';
 import 'package:get/get.dart';
 
+import '../../core/styles/text_styles.dart';
+
 class RecordedVoiceWidget extends StatelessWidget {
   int index;
 
@@ -41,11 +43,11 @@ class RecordedVoiceWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Record name $index'),
+                      Text('Kayıt ${index+1}',style: TextStyles.generalBlackTextStyle2(fontSize: 20.sp),),
                       const Icon(Icons.play_arrow),
                     ],
                   ),
-                  Row(
+                  /*Row(
                     children: [
                       Text('RecordDate $index'),
                       const SizedBox(
@@ -53,7 +55,7 @@ class RecordedVoiceWidget extends StatelessWidget {
                       ),
                       const Text('RecordDuration')
                     ],
-                  ),
+                  ),*/
                 ],
               ),
             ),

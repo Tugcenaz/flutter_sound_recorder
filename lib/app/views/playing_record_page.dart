@@ -1,5 +1,4 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,23 +70,28 @@ class PlayingRecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        leading: Bounceable(
-            onTap: () {
-              Get.back();
-              flutterSoundPlayerController.stopPlayer();
-            },
-            child: Padding(
-              padding: EdgeInsets.only(top: 20.0.sp),
-              child: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.black,
-              ),
-            )),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          forceMaterialTransparency: true,
+          leading: Bounceable(
+              onTap: () {
+                Get.back();
+                flutterSoundPlayerController.stopPlayer();
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top: 20.0.sp),
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: Colors.black,
+                ),
+              )),
+        ),
+        body: _buildBody(),
       ),
-      body: _buildBody(),
     );
   }
 }

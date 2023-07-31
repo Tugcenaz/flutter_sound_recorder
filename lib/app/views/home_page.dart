@@ -10,9 +10,7 @@ import '../controller/sound_controller.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  SoundController soundController = Get.find();
-
-  //FlutterSoundPlayerController flutterSoundPlayerController = Get.find();
+  final SoundController soundController = Get.find();
 
   Widget _buildBody() {
     return Stack(alignment: AlignmentDirectional.bottomStart, children: [
