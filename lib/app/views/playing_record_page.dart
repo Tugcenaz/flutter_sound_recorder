@@ -25,33 +25,35 @@ class PlayingRecordPage extends StatelessWidget {
   Widget _buildBody() {
     return Obx(
       () => Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text('Record Name', style: TextStyles.generalBlackTextStyle1()),
-          Text(
-              flutterSoundPlayerController.currentDuration
-                  .toString()
-                  .split('.')
-                  .first
-                  .padLeft(8, '0'),
-              style: TextStyles.generalBlackTextStyle1()),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: ProgressBar(
-                progressBarColor: Colors.black,
-                baseBarColor: Colors.black45,
-                thumbColor: Colors.black,
-                barHeight: 3,
-                thumbRadius: 5,
-                progress: flutterSoundPlayerController.currentDuration.value,
-                buffered: recordFileDuration,
-                total: recordFileDuration,
-                onSeek: (duration) {
-                  flutterSoundPlayerController.player.seek(duration);
-                  debugPrint('User selected a new time: $duration');
-                },
-              ),
-            ),
+          AudioFileWaveforms(
+              size: Size(200, 70),backgroundColor: Colors.red,
+              playerController: flutterSoundPlayerController.playerController,continuousWaveform: true,),
+          //Text('Record Name', style: TextStyles.generalBlackTextStyle1()),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 80.0),
+            child: Text(
+                flutterSoundPlayerController.currentDuration
+                    .toString()
+                    .split('.')
+                    .first
+                    .padLeft(8, '0'),
+                style: TextStyles.generalBlackTextStyle1()),
+          ),
+          ProgressBar(
+            progressBarColor: Colors.black,
+            baseBarColor: Colors.black45,
+            thumbColor: Colors.black,
+            barHeight: 4,
+            thumbRadius: 5,
+            progress: flutterSoundPlayerController.currentDuration.value,
+            buffered: recordFileDuration,
+            total: recordFileDuration,
+            onSeek: (duration) {
+              flutterSoundPlayerController.player.seek(duration);
+              debugPrint('User selected a new time: $duration');
+            },
           ),
           RecordButton(
             function: () {
@@ -71,12 +73,19 @@ class PlayingRecordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         leading: Bounceable(
             onTap: () {
               Get.back();
               flutterSoundPlayerController.stopPlayer();
             },
-            child: const Icon(Icons.arrow_back_ios_new)),
+            child: Padding(
+              padding: EdgeInsets.only(top: 20.0.sp),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.black,
+              ),
+            )),
       ),
       body: _buildBody(),
     );

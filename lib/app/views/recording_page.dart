@@ -6,7 +6,7 @@ import 'package:flutter_sound_recorder/app/components/record_button.dart';
 import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
 import 'package:flutter_sound_recorder/app/views/home_page.dart';
 import 'package:get/get.dart';
-
+import 'dart:ui' as ui show Gradient;
 import '../../core/styles/text_styles.dart';
 
 class RecordingPage extends StatelessWidget {
@@ -14,23 +14,43 @@ class RecordingPage extends StatelessWidget {
 
   final SoundController soundController = Get.find();
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Obx(
       () => Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 100.0.h),
+            padding: EdgeInsets.only(top: 50.0.h),
             child: AudioWaveforms(
-              enableGesture: true,
-              size: Size(double.infinity, 80.h),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.grey.withOpacity(0.1),
+                      Colors.white.withOpacity(0.2)
+                    ]),
+              ),
+              size: Size(double.infinity, 150.h),
               recorderController: soundController.recorderController,
-              waveStyle: const WaveStyle(),
+              waveStyle: WaveStyle(
+                showMiddleLine: false,
+                extendWaveform: true,
+                waveThickness: 4,
+                gradient: ui.Gradient.linear(
+                  const Offset(70, 50),
+                  Offset(MediaQuery.of(context).size.width / 2, 0),
+                  [Colors.red, Colors.green],
+                ),
+              ),
             ),
+          ),
+          SizedBox(
+            height: 50.sp,
           ),
           Text(
             soundController.audioTime,
-            style: TextStyles.generalBlackTextStyle1(),
+            style: TextStyles.generalBlackTextStyle1(fontSize: 38.sp),
           ),
           soundController.voiceState == VoiceState.recording
               ? RecordButton(
@@ -66,7 +86,7 @@ class RecordingPage extends StatelessWidget {
               color: Colors.black,
             ),
           )),
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       actions: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 18.0.w),
@@ -91,7 +111,7 @@ class RecordingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildBody(),
+      body: _buildBody(context),
     );
   }
 }

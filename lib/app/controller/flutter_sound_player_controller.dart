@@ -1,3 +1,4 @@
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -6,7 +7,7 @@ class FlutterSoundPlayerController extends GetxController {
   final player = AudioPlayer();
   Rx<Duration> currentDuration = Duration.zero.obs;
   Rx<PlayState> playState = PlayState.resume.obs;
-
+PlayerController playerController=PlayerController();
   void startPlayer({required String recordFile}) async {
     try {
       currentDuration.value = Duration.zero;
@@ -16,7 +17,7 @@ class FlutterSoundPlayerController extends GetxController {
       player.setLoopMode(LoopMode.one);
       player.positionStream.listen((event) {
         debugPrint("aaaa $event");
-        currentDuration.value = event ?? Duration.zero;
+        currentDuration.value = event;
       });
     } catch (e) {
       debugPrint(e.toString());
