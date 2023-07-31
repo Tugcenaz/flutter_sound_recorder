@@ -17,7 +17,8 @@ class MyHomePage extends StatelessWidget {
   Widget _buildBody() {
     return Stack(alignment: AlignmentDirectional.bottomStart, children: [
       Obx(
-        () => Column(mainAxisAlignment: MainAxisAlignment.center,
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             soundController.recordList.isEmpty
                 ? Center(
@@ -51,7 +52,7 @@ class MyHomePage extends StatelessWidget {
           icon: Icons.circle,
           function: () {
             soundController.startRecord();
-            Get.off(() => RecordingPage());
+            Get.to(() => RecordingPage());
           },
         ),
       ),
@@ -64,88 +65,16 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         forceMaterialTransparency: true,
         toolbarHeight: 100.h,
-        title: Text(
-          'Tüm kayıtlar',
-          style: TextStyles.generalBlackTextStyle1(),
+        title: Padding(
+          padding: EdgeInsets.only(top: 20.0.sp, left: 20.sp),
+          child: Text(
+            'Tüm kayıtlar',
+            style: TextStyles.generalBlackTextStyle1(),
+          ),
         ),
       ),
       backgroundColor: const Color(0xffEAEAEA),
       body: _buildBody(),
-    );
-  }
-}
-
-/*
-*
-*
-*
-*
-*   Obx(
-          () => Text(soundController.audioTime,
-              style: const TextStyle(
-                fontSize: 24,
-              )),
-        ),
-        Obx(
-          () => Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (soundController.voiceState != VoiceState.none)
-                MediaIcon(
-                    icon: soundController.voiceState == VoiceState.recording
-                        ? Icons.pause
-                        : Icons.play_arrow_rounded,
-                    onPressed: soundController.pauseResumeRecord),
-              if (soundController.voiceState == VoiceState.none)
-                MediaIcon(
-                  icon: Icons.mic,
-                  onPressed: soundController.startRecord,
-                ),
-              if (soundController.voiceState != VoiceState.none)
-                MediaIcon(
-                    icon: Icons.stop, onPressed: soundController.stopRecord),
-            ],
-          ),
-        ),
-        ElevatedButton(
-            onPressed: () {
-              flutterSoundPlayerController
-                  .startPlayer(soundController.recordList[0]);
-            },
-            child: const Text('play')),
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            *
-            * */
-
-class MediaIcon extends StatelessWidget {
-  const MediaIcon({super.key, required this.icon, required this.onPressed});
-
-  final IconData? icon;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-          shape: BoxShape.circle, color: Colors.pink.withOpacity(0.2)),
-      child: IconButton(
-        icon: Icon(icon),
-        onPressed: onPressed,
-        iconSize: 26,
-      ),
     );
   }
 }

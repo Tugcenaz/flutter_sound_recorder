@@ -20,18 +20,18 @@ class RecordingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 50.0.h),
-            child: AudioWaveforms(
+            padding: EdgeInsets.only(top: 200.0.h),
+            child: AudioWaveforms(padding: EdgeInsets.symmetric(horizontal: 60.sp),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.grey.withOpacity(0.1),
-                      Colors.white.withOpacity(0.2)
+                      Colors.grey.withOpacity(0.1)
                     ]),
               ),
-              size: Size(double.infinity, 150.h),
+              size: Size(double.infinity, 200.h),
               recorderController: soundController.recorderController,
               waveStyle: WaveStyle(
                 showMiddleLine: false,
@@ -77,7 +77,7 @@ class RecordingPage extends StatelessWidget {
       leading: Bounceable(
           onTap: () {
             soundController.cancelRecord();
-            Get.to(() => MyHomePage());
+            Get.back();
           },
           child: const Padding(
             padding: EdgeInsets.only(top: 20.0),
@@ -93,7 +93,8 @@ class RecordingPage extends StatelessWidget {
           child: Bounceable(
               onTap: () {
                 soundController.stopAndSaveRecord();
-                Get.to(() => MyHomePage());
+                Get.back();
+
               },
               child: const Padding(
                 padding: EdgeInsets.only(top: 20.0),

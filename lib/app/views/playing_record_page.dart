@@ -27,12 +27,8 @@ class PlayingRecordPage extends StatelessWidget {
       () => Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          AudioFileWaveforms(
-              size: Size(200, 70),backgroundColor: Colors.red,
-              playerController: flutterSoundPlayerController.playerController,continuousWaveform: true,),
-          //Text('Record Name', style: TextStyles.generalBlackTextStyle1()),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 80.0),
+            padding: const EdgeInsets.symmetric(vertical: 40.0),
             child: Text(
                 flutterSoundPlayerController.currentDuration
                     .toString()
@@ -41,19 +37,23 @@ class PlayingRecordPage extends StatelessWidget {
                     .padLeft(8, '0'),
                 style: TextStyles.generalBlackTextStyle1()),
           ),
-          ProgressBar(
-            progressBarColor: Colors.black,
-            baseBarColor: Colors.black45,
-            thumbColor: Colors.black,
-            barHeight: 4,
-            thumbRadius: 5,
-            progress: flutterSoundPlayerController.currentDuration.value,
-            buffered: recordFileDuration,
-            total: recordFileDuration,
-            onSeek: (duration) {
-              flutterSoundPlayerController.player.seek(duration);
-              debugPrint('User selected a new time: $duration');
-            },
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0.sp),
+            child: ProgressBar(
+              timeLabelPadding: 12.sp,
+              progressBarColor: Colors.black,
+              baseBarColor: Colors.black45,
+              thumbColor: Colors.black,
+              barHeight: 4,
+              thumbRadius: 5,
+              progress: flutterSoundPlayerController.currentDuration.value,
+              buffered: recordFileDuration,
+              total: recordFileDuration,
+              onSeek: (duration) {
+                flutterSoundPlayerController.player.seek(duration);
+                debugPrint('User selected a new time: $duration');
+              },
+            ),
           ),
           RecordButton(
             function: () {

@@ -7,7 +7,8 @@ class FlutterSoundPlayerController extends GetxController {
   final player = AudioPlayer();
   Rx<Duration> currentDuration = Duration.zero.obs;
   Rx<PlayState> playState = PlayState.resume.obs;
-PlayerController playerController=PlayerController();
+  PlayerController playerController = PlayerController();
+
   void startPlayer({required String recordFile}) async {
     try {
       currentDuration.value = Duration.zero;
@@ -25,10 +26,9 @@ PlayerController playerController=PlayerController();
   }
 
   void pauseResumePlayer() async {
-    if(player.playerState.playing){
+    if (player.playerState.playing) {
       await player.pause();
-    }
-    else{
+    } else {
       player.play();
     }
   }
@@ -36,6 +36,7 @@ PlayerController playerController=PlayerController();
   void changePlayState(PlayState state) {
     playState.value = state;
   }
+
   void stopPlayer() async {
     await player.stop();
   }
