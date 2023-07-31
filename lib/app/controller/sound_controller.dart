@@ -76,17 +76,6 @@ class SoundController extends GetxController {
     recorderState.isPaused ? startRecord() : pauseRecord();
   }
 
-  /*void resumeRecord() async {
-    try {
-      await record.resume();
-      changeVoiceState(VoiceState.recording);
-      startTimer();
-    } catch (e) {
-      stopTimer();
-      changeVoiceState(VoiceState.none);
-      debugPrint(e.toString());
-    }
-  }*/
 
   void pauseRecord() async {
     try {

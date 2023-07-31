@@ -27,14 +27,22 @@ class PlayingRecordPage extends StatelessWidget {
       () => Column(
         children: [
           Text('Record Name', style: TextStyles.generalBlackTextStyle1()),
-          Text('Record Duration', style: TextStyles.generalBlackTextStyle1()),
+          Text(
+              flutterSoundPlayerController.currentDuration
+                  .toString()
+                  .split('.')
+                  .first
+                  .padLeft(8, '0'),
+              style: TextStyles.generalBlackTextStyle1()),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(50.0),
               child: ProgressBar(
                 progressBarColor: Colors.black,
                 baseBarColor: Colors.black45,
-                thumbColor: Colors.black,barHeight: 3,thumbRadius: 5,
+                thumbColor: Colors.black,
+                barHeight: 3,
+                thumbRadius: 5,
                 progress: flutterSoundPlayerController.currentDuration.value,
                 buffered: recordFileDuration,
                 total: recordFileDuration,

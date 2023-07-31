@@ -51,61 +51,46 @@ class RecordingPage extends StatelessWidget {
     );
   }
 
-  /*
-  *
-  *  if (soundController.voiceState == VoiceState.none) {
-                soundController.startRecord();
-              } else if (soundController.voiceState == VoiceState.recording) {
-                soundController.pauseRecord();
-              } else {
-                soundController.startRecord();
-              }
-              *
-              * */
-  /*soundController.voiceState == VoiceState.recording
-                      ? Icon(
-                          Icons.pause,
-                          size: 22.sp,
-                          color: Colors.white,
-                        )
-                      : soundController.voiceState == VoiceState.paused
-                          ? Icon(
-                              Icons.play_arrow,
-                              size: 22.sp,
-                              color: Colors.white,
-                            )
-                          : const SizedBox(),*/
+  AppBar _buildAppBar() {
+    return AppBar(
+      forceMaterialTransparency: true,
+      leading: Bounceable(
+          onTap: () {
+            soundController.cancelRecord();
+            Get.to(() => MyHomePage());
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Icon(
+              Icons.close,
+              color: Colors.black,
+            ),
+          )),
+      backgroundColor: Colors.white,
+      actions: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18.0.w),
+          child: Bounceable(
+              onTap: () {
+                soundController.stopAndSaveRecord();
+                Get.to(() => MyHomePage());
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.black,
+                ),
+              )),
+        )
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        leading: Bounceable(
-            onTap: () {
-              soundController.cancelRecord();
-              Get.to(() => MyHomePage());
-            },
-            child: const Icon(
-              Icons.close,
-              color: Colors.black,
-            )),
-        backgroundColor: Colors.white,
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.0.w),
-            child: Bounceable(
-                onTap: () {
-                  soundController.stopAndSaveRecord();
-                  Get.to(() => MyHomePage());
-                },
-                child: const Icon(
-                  Icons.check,
-                  color: Colors.black,
-                )),
-          )
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: _buildBody(),
     );
   }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sound_recorder/app/components/record_button.dart';
 import 'package:flutter_sound_recorder/app/components/recorded_voice_widget.dart';
 import 'package:flutter_sound_recorder/app/views/recording_page.dart';
-import 'package:flutter_sound_recorder/app/controller/flutter_sound_player_controller.dart';
 import 'package:get/get.dart';
 import '../../core/styles/text_styles.dart';
 import '../controller/sound_controller.dart';
@@ -20,7 +17,7 @@ class MyHomePage extends StatelessWidget {
   Widget _buildBody() {
     return Stack(alignment: AlignmentDirectional.bottomStart, children: [
       Obx(
-        () => Column(
+        () => Column(mainAxisAlignment: MainAxisAlignment.center,
           children: [
             soundController.recordList.isEmpty
                 ? Center(
