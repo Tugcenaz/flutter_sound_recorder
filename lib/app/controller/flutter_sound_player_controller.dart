@@ -1,5 +1,5 @@
-import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -7,7 +7,7 @@ class FlutterSoundPlayerController extends GetxController {
   final player = AudioPlayer();
   Rx<Duration> currentDuration = Duration.zero.obs;
   Rx<PlayState> playState = PlayState.resume.obs;
-  PlayerController playerController = PlayerController();
+  SoundController soundController=Get.find();
 
   void startPlayer({required String recordFile}) async {
     try {
@@ -36,6 +36,7 @@ class FlutterSoundPlayerController extends GetxController {
   void changePlayState(PlayState state) {
     playState.value = state;
   }
+
 
   void stopPlayer() async {
     await player.stop();
