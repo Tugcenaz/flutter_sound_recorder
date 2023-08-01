@@ -13,48 +13,47 @@ class MyHomePage extends StatelessWidget {
   final SoundController soundController = Get.find();
 
   Widget _buildBody() {
-    return Stack(alignment: AlignmentDirectional.bottomStart, children: [
-      Obx(
-        () => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            soundController.recordList.isEmpty
-                ? Center(
-                    child: Text(
-                      'Henüz hiç kayıt yapmadınız',
-                      style: TextStyles.generalBlackTextStyle2(),
-                    ),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: soundController.recordList.length,
-                      itemBuilder: (context, int index) {
-                        return RecordedVoiceWidget(
-                          index: index,
-                        );
-                      },
-                    ),
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          soundController.recordList.isEmpty
+              ? Center(
+                  child: Text(
+                    'Henüz hiç kayıt yapmadınız',
+                    style: TextStyles.generalBlackTextStyle2(),
                   ),
-          ],
-        ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: soundController.recordList.length,
+                    itemBuilder: (context, int index) {
+                      return RecordedVoiceWidget(
+                        index: index,
+                      );
+                    },
+                  ),
+                ),
+          Container(
+            height: 200.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(36.sp),
+                    topLeft: Radius.circular(36.sp))),
+            child: RecordButton(
+              icon: Icons.circle,
+              function: () {
+                soundController.startRecord();
+                Get.to(() => RecordingPage());
+              },
+            ),
+          ),
+        ],
       ),
-      Container(
-        height: 200.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(22.sp),
-                topLeft: Radius.circular(22.sp))),
-        child: RecordButton(
-          icon: Icons.circle,
-          function: () {
-            soundController.startRecord();
-            Get.to(() => RecordingPage());
-          },
-        ),
-      ),
-    ]);
+    );
   }
 
   @override
