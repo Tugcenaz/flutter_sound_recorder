@@ -52,23 +52,16 @@ class RecordedVoiceWidget extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Bounceable(onTap: () {
-                            Get.to(()=>FileSharingScreen());
-                          }, child: Icon(Icons.share)),
+                          Bounceable(
+                              onTap: () {
+                                Get.to(() => FileSharingScreen());
+                              },
+                              child: const Icon(Icons.share)),
                           const Icon(Icons.play_arrow),
                         ],
                       ),
                     ],
                   ),
-                  /*Row(
-                    children: [
-                      Text('RecordDate $index'),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Text('RecordDuration')
-                    ],
-                  ),*/
                 ],
               ),
             ),

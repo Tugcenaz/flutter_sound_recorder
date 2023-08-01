@@ -15,7 +15,7 @@ class MyHomePage extends StatelessWidget {
   Widget _buildBody() {
     return Obx(
       () => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+       mainAxisAlignment: MainAxisAlignment.end,
         children: [
           soundController.recordList.isEmpty
               ? Center(

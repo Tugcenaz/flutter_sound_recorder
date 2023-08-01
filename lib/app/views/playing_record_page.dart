@@ -12,7 +12,7 @@ import '../components/record_button.dart';
 class PlayingRecordPage extends StatefulWidget {
   final String recordFilePath;
 
-  PlayingRecordPage({super.key, required this.recordFilePath});
+  const PlayingRecordPage({super.key, required this.recordFilePath});
 
   @override
   State<PlayingRecordPage> createState() => _PlayingRecordPageState();
@@ -76,23 +76,42 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
     );
   }
 
+  void deleteSound() {
+    soundController.recordList.remove(widget.recordFilePath);
+    Get.back();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
-        leading: Bounceable(
-            onTap: () {
-              Get.back();
-              flutterSoundPlayerController.stopPlayer();
-            },
-            child: Padding(
-              padding: EdgeInsets.only(top: 20.0.sp),
+        leading: Padding(
+          padding: EdgeInsets.all(22.0.sp),
+          child: Bounceable(
+              onTap: () {
+                Get.back();
+                flutterSoundPlayerController.stopPlayer();
+              },
               child: const Icon(
                 Icons.arrow_back_ios_new,
                 color: Colors.black,
+              )),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(22.0.sp),
+            child: Bounceable(
+              onTap: () {
+                deleteSound();
+              },
+              child: const Icon(
+                Icons.delete,
+                color: Colors.black,
               ),
-            )),
+            ),
+          )
+        ],
       ),
       body: _buildBody(),
     );
