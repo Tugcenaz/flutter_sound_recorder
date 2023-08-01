@@ -9,17 +9,25 @@ import 'package:get/get.dart';
 import '../../core/styles/text_styles.dart';
 import '../components/record_button.dart';
 
-class PlayingRecordPage extends StatelessWidget {
+class PlayingRecordPage extends StatefulWidget {
   final String recordFilePath;
-  final Duration recordFileDuration;
 
-  PlayingRecordPage(
-      {super.key,
-      required this.recordFilePath,
-      required this.recordFileDuration});
+  PlayingRecordPage({super.key, required this.recordFilePath});
 
+  @override
+  State<PlayingRecordPage> createState() => _PlayingRecordPageState();
+}
+
+class _PlayingRecordPageState extends State<PlayingRecordPage> {
   final SoundController soundController = Get.find();
+
   final FlutterSoundPlayerController flutterSoundPlayerController = Get.find();
+
+  @override
+  void dispose() {
+    flutterSoundPlayerController.stopPlayer();
+    super.dispose();
+  }
 
   Widget _buildBody() {
     return Obx(
@@ -46,8 +54,8 @@ class PlayingRecordPage extends StatelessWidget {
               barHeight: 4,
               thumbRadius: 5,
               progress: flutterSoundPlayerController.currentDuration.value,
-              buffered: recordFileDuration,
-              total: recordFileDuration,
+              buffered: flutterSoundPlayerController.recordedDuration,
+              total: flutterSoundPlayerController.recordedDuration,
               onSeek: (duration) {
                 flutterSoundPlayerController.player.seek(duration);
                 debugPrint('User selected a new time: $duration');
@@ -70,28 +78,23 @@ class PlayingRecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          forceMaterialTransparency: true,
-          leading: Bounceable(
-              onTap: () {
-                Get.back();
-                flutterSoundPlayerController.stopPlayer();
-              },
-              child: Padding(
-                padding: EdgeInsets.only(top: 20.0.sp),
-                child: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.black,
-                ),
-              )),
-        ),
-        body: _buildBody(),
+    return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+        leading: Bounceable(
+            onTap: () {
+              Get.back();
+              flutterSoundPlayerController.stopPlayer();
+            },
+            child: Padding(
+              padding: EdgeInsets.only(top: 20.0.sp),
+              child: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.black,
+              ),
+            )),
       ),
+      body: _buildBody(),
     );
   }
 }
