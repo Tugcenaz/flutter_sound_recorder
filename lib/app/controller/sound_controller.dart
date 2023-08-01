@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SoundController extends GetxController {
   final Rx<Duration> _recordDuration = Duration.zero.obs;
   final RxList<String> recordList = <String>[].obs;
   final Rx<VoiceState> _voiceState = VoiceState.none.obs;
   RxList<Duration> currentDurationList = <Duration>[].obs;
+  var box = Hive.box("soundBox");
 
   Timer? timer;
 
@@ -30,11 +35,18 @@ class SoundController extends GetxController {
     return recordDuration.toString().split('.').first.padLeft(8, '0');
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    getSoundList();
+  }
+
   void startRecord() async {
     try {
       if (await recorderController.checkPermission()) {
         debugPrint("start ");
-        await recorderController.record(bitRate: 48000);
+        await recorderController.record(
+            bitRate: 48000, androidOutputFormat: AndroidOutputFormat.ogg);
         startTimer();
         changeVoiceState(VoiceState.recording);
       } else {
@@ -53,19 +65,38 @@ class SoundController extends GetxController {
       debugPrint(
         "recordPath $recordPath",
       );
-      currentDurationList.add(Duration(
-          milliseconds: recorderController.recordedDuration.inMilliseconds));
+      /*currentDurationList.add(Duration(
+          milliseconds: recorderController.recordedDuration.inMilliseconds));*/
       stopTimer();
       changeVoiceState(VoiceState.none);
       if (recordPath != null) {
         recordList.add(recordPath);
         debugPrint('recordList:$recordList');
+        var fileBytes = await File(recordPath).readAsBytes();
+        await box.add(fileBytes);
       }
     } catch (e) {
       stopTimer();
       changeVoiceState(VoiceState.none);
       debugPrint(e.toString());
     }
+  }
+
+  Future<List<String>> getSoundList() async {
+    List<String> soundList = [];
+    for (int i = 0; i < box.length; i++) {
+      Uint8List? readData = box.getAt(i);
+      if (readData != null) {
+        final tempDir = await getTemporaryDirectory();
+        File file = await File(
+                '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}')
+            .create();
+        await file.writeAsBytes(readData);
+        soundList.add(file.path);
+      }
+    }
+    recordList.value = soundList;
+    return soundList;
   }
 
   void pauseResumeRecord() {
@@ -75,7 +106,6 @@ class SoundController extends GetxController {
     });
     recorderState.isPaused ? startRecord() : pauseRecord();
   }
-
 
   void pauseRecord() async {
     try {

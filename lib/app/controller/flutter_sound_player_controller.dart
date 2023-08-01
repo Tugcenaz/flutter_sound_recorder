@@ -8,12 +8,14 @@ class FlutterSoundPlayerController extends GetxController {
   Rx<Duration> currentDuration = Duration.zero.obs;
   Rx<PlayState> playState = PlayState.resume.obs;
   SoundController soundController=Get.find();
+  Duration recordedDuration = Duration.zero;
 
-  void startPlayer({required String recordFile}) async {
+  startPlayer({required String recordFile}) async {
     try {
       currentDuration.value = Duration.zero;
       Duration? totalDuration = await player.setFilePath(recordFile);
-      debugPrint(totalDuration.toString());
+      recordedDuration=totalDuration??Duration.zero;//kayıt süresine toplam duration atadık
+      debugPrint("total duration = ${totalDuration}");
       player.play();
       player.setLoopMode(LoopMode.one);
       player.positionStream.listen((event) {

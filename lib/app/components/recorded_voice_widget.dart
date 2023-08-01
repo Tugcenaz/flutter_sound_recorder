@@ -4,6 +4,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sound_recorder/app/controller/flutter_sound_player_controller.dart';
 import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
+import 'package:flutter_sound_recorder/app/views/ble_page.dart';
 import 'package:flutter_sound_recorder/app/views/playing_record_page.dart';
 import 'package:get/get.dart';
 
@@ -22,10 +23,11 @@ class RecordedVoiceWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 16.w),
       child: Bounceable(
-        onTap: () {
-          flutterSoundPlayerController.startPlayer(
+        onTap: () async {
+          await flutterSoundPlayerController.startPlayer(
               recordFile: soundController.recordList[index]);
-          Get.to(() => PlayingRecordPage(recordFilePath: soundController.recordList[index],recordFileDuration: soundController.currentDurationList[index]));
+          Get.to(() => PlayingRecordPage(
+              recordFilePath: soundController.recordList[index]));
         },
         child: Center(
           child: Container(
@@ -43,8 +45,19 @@ class RecordedVoiceWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Kayıt ${index+1}',style: TextStyles.generalBlackTextStyle2(fontSize: 20.sp),),
-                      const Icon(Icons.play_arrow),
+                      Text(
+                        'Kayıt ${index + 1}',
+                        style:
+                            TextStyles.generalBlackTextStyle2(fontSize: 20.sp),
+                      ),
+                      Row(
+                        children: [
+                          Bounceable(onTap: () {
+                            Get.to(()=>FileSharingScreen());
+                          }, child: Icon(Icons.share)),
+                          const Icon(Icons.play_arrow),
+                        ],
+                      ),
                     ],
                   ),
                   /*Row(
