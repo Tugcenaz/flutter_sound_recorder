@@ -76,11 +76,6 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
     );
   }
 
-  void deleteSound() {
-    soundController.recordList.remove(widget.recordFilePath);
-    Get.back();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,21 +93,7 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
                 color: Colors.black,
               )),
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(22.0.sp),
-            child: Bounceable(
-              onTap: () {
-                deleteSound();
-              },
-              child: const Icon(
-                Icons.delete,
-                color: Colors.black,
-              ),
-            ),
-          )
-        ],
-      ),
+        ),
       body: _buildBody(),
     );
   }

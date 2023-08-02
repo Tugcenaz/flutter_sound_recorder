@@ -95,6 +95,7 @@ class SoundController extends GetxController {
         soundList.add(file.path);
       }
     }
+
     recordList.value = soundList;
     return soundList;
   }
