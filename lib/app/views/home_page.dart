@@ -4,13 +4,20 @@ import 'package:flutter_sound_recorder/app/components/record_button.dart';
 import 'package:flutter_sound_recorder/app/components/recorded_voice_widget.dart';
 import 'package:flutter_sound_recorder/app/views/recording_page.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import '../../core/styles/text_styles.dart';
 import '../controller/sound_controller.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final SoundController soundController = Get.find();
+  var box = Hive.box("soundBox");
 
   Widget _buildBody() {
     return Obx(
