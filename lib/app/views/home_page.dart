@@ -19,18 +19,26 @@ class _MyHomePageState extends State<MyHomePage> {
   final SoundController soundController = Get.find();
   var box = Hive.box("soundBox");
 
+  @override
+  void initState() {
+
+    super.initState();
+
+  box.clear();}
   Widget _buildBody() {
     return Obx(
-      () => Column(
-       mainAxisAlignment: MainAxisAlignment.end,
+      () => Column(mainAxisAlignment: MainAxisAlignment.end,
         children: [
           soundController.recordList.isEmpty
-              ? Center(
-                  child: Text(
-                    'Henüz hiç kayıt yapmadınız',
-                    style: TextStyles.generalBlackTextStyle2(),
+              ? Padding(
+                padding: EdgeInsets.only(bottom: 250.0.sp),
+                child: Center(
+                    child: Text(
+                      'Henüz hiç kayıt yapmadınız',
+                      style: TextStyles.generalBlackTextStyle2(),
+                    ),
                   ),
-                )
+              )
               : Expanded(
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -58,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
+
         ],
       ),
     );
