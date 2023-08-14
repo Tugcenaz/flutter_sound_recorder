@@ -9,11 +9,10 @@ class DownloadController extends GetxController {
   RxBool active = false.obs;
   RxInt downloadBytes = 0.obs;
   RxInt fileTotalBytes = 0.obs;
-
   var audioPath =
       "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
 
-  testFunc() async {
+  startDownload() async {
     FlutterSoundPlayerController flutterSoundPlayerController = Get.find();
     String filePath = await downloadFile(audioPath);
     //indirilen dosyadaki file'ın byteları alınır ve simülasyona gönderilir
@@ -40,7 +39,7 @@ class DownloadController extends GetxController {
     }
     final tempDir = await getTemporaryDirectory();
     File file = await File(
-            '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.mp3')
+            '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.ogg')
         .create();
     await file.writeAsBytes(newBytes);
     downloadBytes.value = 0;

@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             if (soundDownloadController.active.value == true) {
                               soundDownloadController.active.value = false;
                             } else {
-                              soundDownloadController.testFunc();
+                              soundDownloadController.startDownload();
                             }
                           },
                         ),
