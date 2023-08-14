@@ -56,8 +56,8 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
               progress: flutterSoundPlayerController.currentDuration.value,
               buffered: flutterSoundPlayerController.recordedDuration,
               total: flutterSoundPlayerController.recordedDuration,
-              onSeek: (duration) {
-                flutterSoundPlayerController.player.seek(duration);
+              onSeek: (duration) async {
+                await flutterSoundPlayerController.player.seek(duration);
                 debugPrint('User selected a new time: $duration');
               },
             ),
@@ -80,20 +80,10 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: true,
-        leading: Padding(
-          padding: EdgeInsets.all(22.0.sp),
-          child: Bounceable(
-              onTap: () {
-                Get.back();
-                flutterSoundPlayerController.stopPlayer();
-              },
-              child: const Icon(
-                Icons.arrow_back_ios_new,
-                color: Colors.black,
-              )),
-        ),
-        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
       body: _buildBody(),
     );
   }
