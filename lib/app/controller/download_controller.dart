@@ -9,8 +9,9 @@ class DownloadController extends GetxController {
   RxBool active = false.obs;
   RxInt downloadBytes = 0.obs;
   RxInt fileTotalBytes = 0.obs;
-  var audioPath =
-      "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
+  var audioPath ="https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/soft-rain-ambient-111154.mp3?alt=media&token=a0fc04a8-efa3-47af-b280-65d581aa2a58";
+  //var audioPath =
+     // "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
 
   startDownload() async {
     FlutterSoundPlayerController flutterSoundPlayerController = Get.find();
