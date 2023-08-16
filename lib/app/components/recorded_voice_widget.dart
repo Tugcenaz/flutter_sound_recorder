@@ -26,8 +26,6 @@ class RecordedVoiceWidget extends StatelessWidget {
         onTap: () async {
           await flutterSoundPlayerController.startPlayer(
               recordFile: soundController.recordList[index]);
-          Get.to(() => PlayingRecordPage(
-              recordFilePath: soundController.recordList[index]));
         },
         child: Center(
           child: Container(

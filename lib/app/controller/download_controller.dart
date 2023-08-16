@@ -6,12 +6,13 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DownloadController extends GetxController {
-  RxBool active = false.obs;
+  RxBool simulatorActive = false.obs;
   RxInt downloadBytes = 0.obs;
   RxInt fileTotalBytes = 0.obs;
-  var audioPath ="https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/soft-rain-ambient-111154.mp3?alt=media&token=a0fc04a8-efa3-47af-b280-65d581aa2a58";
+  var audioPath = "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/mp3indirdur-BTS-Let-Me-Know.mp3?alt=media&token=82c0d21a-0acf-4879-8f74-cf8be3b85442";
+  //var audioPath ="https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/soft-rain-ambient-111154.mp3?alt=media&token=a0fc04a8-efa3-47af-b280-65d581aa2a58";
   //var audioPath =
-     // "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
+   //   "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
 
   startDownload() async {
     FlutterSoundPlayerController flutterSoundPlayerController = Get.find();
@@ -21,15 +22,14 @@ class DownloadController extends GetxController {
         await byteDownloadSimulator(File(filePath).readAsBytesSync());
 
     await flutterSoundPlayerController.startPlayer(recordFile: soundFile.path);
-    Get.to(() => PlayingRecordPage(recordFilePath: soundFile.path));
   }
 
   Future<File> byteDownloadSimulator(Uint8List bytes) async {
-    active.value = true;
+    simulatorActive.value = true;
     fileTotalBytes.value = bytes.length;
     List<int> newBytes = [];
     for (int i = 0; i < bytes.length; i++) {
-      if (active.value == false) {
+      if (simulatorActive.value == false) {
         i = bytes.length;
       } else {
         downloadBytes.value = i;
@@ -40,12 +40,12 @@ class DownloadController extends GetxController {
     }
     final tempDir = await getTemporaryDirectory();
     File file = await File(
-            '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.ogg')
+            '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.mp3')
         .create();
     await file.writeAsBytes(newBytes);
     downloadBytes.value = 0;
     fileTotalBytes.value = 0;
-    active.value = false;
+    simulatorActive.value = false;
     return file;
   }
 
@@ -53,12 +53,10 @@ class DownloadController extends GetxController {
     HttpClient httpClient = HttpClient();
     File file;
     String filePath = '';
-    String myUrl = '';
     Directory tempDir = await getTemporaryDirectory();
     String fileName = '${DateTime.now().millisecondsSinceEpoch}.mp3';
     try {
-      myUrl = '$url/$fileName';
-      var request = await httpClient.getUrl(Uri.parse(myUrl));
+      var request = await httpClient.getUrl(Uri.parse(url));
       var response = await request.close();
       if (response.statusCode == 200) {
         Uint8List bytes = await consolidateHttpClientResponseBytes(response);

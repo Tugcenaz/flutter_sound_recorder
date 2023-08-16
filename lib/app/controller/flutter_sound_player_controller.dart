@@ -3,6 +3,8 @@ import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../views/playing_record_page.dart';
+
 class FlutterSoundPlayerController extends GetxController {
   final player = AudioPlayer();
   Rx<Duration> currentDuration = Duration.zero.obs;
@@ -22,6 +24,8 @@ class FlutterSoundPlayerController extends GetxController {
         debugPrint("aaaa $event");
         currentDuration.value = event;
       });
+      Get.to(() => PlayingRecordPage(
+          recordFilePath: recordFile));
     } catch (e) {
       debugPrint(e.toString());
     }

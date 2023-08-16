@@ -20,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final SoundController soundController = Get.find();
   var box = Hive.box("soundBox");
   final DownloadController soundDownloadController = Get.find();
+  RxBool busy = false.obs;
 
   @override
   void initState() {
@@ -72,32 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Get.to(() => RecordingPage());
                   },
                 ),
-                SizedBox(
-                  height: 200.sp,
-                  width: 200.sp,
-                  child: Obx(
-                    () => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (soundDownloadController.active.value == true)
-                          Text(
-                              "${soundDownloadController.downloadBytes.value}/${soundDownloadController.fileTotalBytes.value}"),
-                        IconButton(
-                          icon: soundDownloadController.active.value == true
-                              ? const Icon(Icons.stop)
-                              : const Icon(Icons.download),
-                          onPressed: () {
-                            if (soundDownloadController.active.value == true) {
-                              soundDownloadController.active.value = false;
-                            } else {
-                              soundDownloadController.startDownload();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildDownloadButton(),
               ],
             ),
           ),
@@ -106,14 +82,53 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  _buildDownloadButton() {
+    return SizedBox(
+      height: 200.sp,
+      width: 200.sp,
+      child: Obx(
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (soundDownloadController.simulatorActive.value == true)
+              Text(
+                  "${soundDownloadController.downloadBytes.value}/${soundDownloadController.fileTotalBytes.value}"),
+            (busy.value == true &&
+                    soundDownloadController.simulatorActive.value != true)
+                ? const CircularProgressIndicator()
+                : IconButton(
+                    icon: soundDownloadController.simulatorActive.value == true
+                        ? const Icon(Icons.stop)
+                        : const Icon(Icons.download),
+                    onPressed: () async {
+                      try {
+                        busy.value = true;
+                        if (soundDownloadController.simulatorActive.value ==
+                            true) {
+                          soundDownloadController.simulatorActive.value = false;
+                        } else {
+                          await soundDownloadController.startDownload();
+                        }
+                      } finally {
+                        busy.value = false;
+                      }
+                    },
+                  ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: false,
+      appBar: AppBar(
+        centerTitle: false,
         forceMaterialTransparency: true,
         toolbarHeight: 100.h,
         title: Padding(
-          padding:  EdgeInsets.all(12.0.sp),
+          padding: EdgeInsets.all(12.0.sp),
           child: Text(
             'Tüm kayıtlar',
             style: TextStyles.generalBlackTextStyle1(),
