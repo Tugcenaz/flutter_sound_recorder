@@ -1,11 +1,9 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sound_recorder/app/controller/flutter_sound_player_controller.dart';
 import 'package:flutter_sound_recorder/app/controller/sound_controller.dart';
 import 'package:flutter_sound_recorder/app/views/ble_page.dart';
-import 'package:flutter_sound_recorder/app/views/playing_record_page.dart';
 import 'package:get/get.dart';
 
 import '../../core/styles/text_styles.dart';
@@ -69,26 +67,3 @@ class RecordedVoiceWidget extends StatelessWidget {
     );
   }
 }
-/*
-*
-*
-*
-*
-*   Obx(
-                  () => Expanded(
-                    child: ProgressBar(
-                      progress: flutterSoundPlayerController.currentDuration.value,
-                      buffered: soundController.currentDurationList[index],
-                      total: soundController.currentDurationList[index],
-                      onSeek: (duration) {
-                        print('User selected a new time: $duration');
-                      },
-                    ),
-                  ),
-                ),
-                *
-                *
-                *
-                *
-                *
-                * */

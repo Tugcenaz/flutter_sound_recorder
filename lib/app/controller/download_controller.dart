@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_sound_recorder/app/controller/flutter_sound_player_controller.dart';
-import 'package:flutter_sound_recorder/app/views/playing_record_page.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -9,8 +8,8 @@ class DownloadController extends GetxController {
   RxBool simulatorActive = false.obs;
   RxInt downloadBytes = 0.obs;
   RxInt fileTotalBytes = 0.obs;
-  var audioPath = "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/mp3indirdur-BTS-Let-Me-Know.mp3?alt=media&token=82c0d21a-0acf-4879-8f74-cf8be3b85442";
-  //var audioPath ="https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/soft-rain-ambient-111154.mp3?alt=media&token=a0fc04a8-efa3-47af-b280-65d581aa2a58";
+  //var audioPath = "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/mp3indirdur-BTS-Let-Me-Know.mp3?alt=media&token=82c0d21a-0acf-4879-8f74-cf8be3b85442";
+  var audioPath ="https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/soft-rain-ambient-111154.mp3?alt=media&token=a0fc04a8-efa3-47af-b280-65d581aa2a58";
   //var audioPath =
    //   "https://firebasestorage.googleapis.com/v0/b/flutter-sound-recorder.appspot.com/o/Yagmur-sesi-zil-sesi-indir-4.mp3?alt=media&token=a7a5ddfe-7b0f-46ae-ad81-50c16f7366be";
 

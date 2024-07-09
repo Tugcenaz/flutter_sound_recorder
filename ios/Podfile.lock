@@ -59,18 +59,18 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/record/ios"
 
 SPEC CHECKSUMS:
-  audio_session: 4f3e461722055d21515cf3261b64c973c062f345
+  audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   audio_waveforms: cd736909ebc6b6a164eb74701d8c705ce3241e1c
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_downloader: b7301ae057deadd4b1650dc7c05375f10ff12c39
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   Protobuf: c6bc59bbab3d38a71c67f62d7cb7ca8f8ea4eca1
   reactive_ble_mobile: 9ce6723d37ccf701dbffd202d487f23f5de03b4c
   record: cae05d8dd3cdb1dea3511b20e5a5811a1ae00d0d
   SwiftProtobuf: 7773c4e96a99d7b8ab7cda0fc30a883732ff93b1
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.0

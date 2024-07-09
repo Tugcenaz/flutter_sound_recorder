@@ -80,7 +80,7 @@ class _PlayingRecordPageState extends State<PlayingRecordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+       // backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
       ),

@@ -25,7 +25,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
     box.clear();
   }
 
@@ -63,18 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(36.sp),
                     topLeft: Radius.circular(36.sp))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                RecordButton(
-                  icon: Icons.circle,
-                  function: () {
-                    soundController.startRecord();
-                    Get.to(() => RecordingPage());
-                  },
-                ),
-                _buildDownloadButton(),
-              ],
+            child: RecordButton(
+              icon: Icons.circle,
+              function: () {
+                Get.to(() => RecordingPage());
+              },
             ),
           ),
         ],
@@ -135,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      backgroundColor: const Color(0xffEAEAEA),
+      //backgroundColor: const Color(0xffEAEAEA),
       body: _buildBody(),
     );
   }
